@@ -55,6 +55,15 @@
         .delete-btn:hover {
             background: #b71c1c;
         }
+
+        .delete-btn {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 9px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -78,10 +87,8 @@
             <td>{{ student.course }}</td>
             <td>{{ student.price }}</td>
             <td>
-                <form method="POST">
+                <form method="POST" action="{% url 'delete' student.id %}" onsubmit="return choice()">
                     {% csrf_token %}
-                    <input type="hidden" name="student_id" value="{{ student.id }}">
-
                     <button type="submit" class="delete-btn">
                         Delete
                     </button>
@@ -94,11 +101,13 @@
         </tr>
         {% endfor %}
     </table>
-   {% if message %}
-   <script>
-        alert("{{message}}")
-   </script>
-   {% endif %}
+    <script>
+        function choice() {
+            return confirm("Do you wish to delete this task ?")
+        }
+    </script>
+
+
 
 </body>
 

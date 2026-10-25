@@ -33,14 +33,14 @@ def update(request,student_id):
     
     return render(request,"update.html",{"student": student_data})
 
-def delete(request):
-    students=Students.objects.all()
+def delete_page(request):
+    students = Students.objects.all()
+    return render(request, "delete.html", {"students": students})
+
+def delete(request,student_id):
     if request.method=="POST":
-        student_id=request.POST.get("student_id")
         Students.objects.get(id=student_id).delete()
-        return render(request, {"message":"Data Deleted Successfully"})
-    
-    return render(request,"delete.html",{"students":students})
+    return redirect("delete_page")
 
 def display(request):
     student_data=Students.objects.all()
